@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shida &amp; Ansab — Wedding Invitation</title>
+  <meta name="description" content="Wedding Reception: Sunday, 11 October 2026 · Nikah: Saturday, 10 October after Asr. You are warmly invited to celebrate with us." />
+  <meta name="theme-color" content="#9c5f6e" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shidaansab.vercel.app/" />
+  <meta property="og:title" content="Shida &amp; Ansab — Wedding Invitation" />
+  <meta property="og:description" content="Wedding Reception: Sunday, 11 October 2026 · Nikah: Saturday, 10 October after Asr" />
+  <meta property="og:image" content="https://shidaansab.vercel.app/og-invitation.jpg?v=3" />
+  <meta property="og:image:secure_url" content="https://shidaansab.vercel.app/og-invitation.jpg?v=3" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Shida &amp; Ansab — Wedding Reception: 11 October 2026 · Nikah: 10 October" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Shida &amp; Ansab — Wedding Invitation" />
+  <meta name="twitter:description" content="Wedding Reception: Sunday, 11 October 2026 · Nikah: Saturday, 10 October after Asr" />
+  <meta name="twitter:image" content="https://shidaansab.vercel.app/og-invitation.jpg?v=3" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&amp;family=Allura&amp;family=Amiri:wght@400;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&amp;family=Great+Vibes&amp;family=MonteCarlo&amp;family=Parisienne&amp;family=Pinyon+Script&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <noscript>
+    <style>
+      body { overflow: auto !important; }
+      #invitation[hidden] { display: block !important; }
+      #invitation-gate { display: none !important; }
+    </style>
+  </noscript>
+</head>
+<body class="is-locked">
+  <a class="skip-link" href="#main-content">Skip to invitation details</a>
+
+  <audio id="wedding-music" preload="none" loop aria-label="Wedding background music">
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <section class="invitation-gate" id="invitation-gate" aria-label="Open wedding invitation">
+    <div class="gate-doors" aria-hidden="true">
+      <div class="opening-panel opening-panel-left"></div>
+      <div class="opening-panel opening-panel-right"></div>
+    </div>
+    <div class="gate-ambient-glow" aria-hidden="true"></div>
+    <div class="gate-sparkles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="gate-card">
+      <img class="gate-bismillah" src="bismillah.png" alt="Bismillah ir-Rahman ir-Rahim" width="500" height="500" decoding="async" />
+      <h1 class="gate-names"><span>Shida</span> <i class="gate-amp">&amp;</i> <span><span class="cap-a">A</span>nsab</span></h1>
+      <p class="gate-primary-date"><strong>Nikah Ceremony</strong><br />Saturday · 10 October 2026</p>
+      <p class="gate-secondary-date">Wedding Reception · Sunday, 11 October</p>
+      <button class="gate-open-button" id="open-invitation" type="button">
+        <span>Open invitation</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 7 7-7 7" /></svg>
+      </button>
+      <p class="gate-note">With the grace and will of Allah <span aria-hidden="true">ﷻ</span></p>
+    </div>
+  </section>
+
+  <button class="music-toggle" id="music-toggle" type="button" aria-label="Mute background music" hidden>
+    <svg class="music-icon music-icon-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v13M9 9l10-2M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm10-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" /></svg>
+    <svg class="music-icon music-icon-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v10M9 9l10-2M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6M3 3l18 18" /></svg>
+  </button>
+
+  <div class="invitation" id="invitation" aria-hidden="true" hidden>
+    <header class="hero" id="top">
+      <img class="hero-top-flower" src="t5-details-flower.png" alt="" aria-hidden="true" width="300" height="200" />
+      <div class="hero-grain" aria-hidden="true"></div>
+      <div class="hero-petals" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="hero-shell">
+        <div class="hero-grid">
+          <div class="hero-copy"> 
+            <div class="hero-identity">
+              <img class="hero-bismillah" src="bismillah.png" alt="Bismillah ir-Rahman ir-Rahim" width="500" height="500" loading="eager" decoding="async" />
+              <p class="hero-arabic-blessing" lang="ar" dir="rtl">بِإِذْنِ اللَّهِ تَعَالَى</p>
+              <p class="eyebrow">TOGETHER WITH OUR FAMILIES</p>
+              <h1 class="couple-names" id="invitation-title" tabindex="-1"><span>Shida</span><i>&amp;</i><span><span class="cap-a">A</span>nsab</span></h1>
+              <p class="hero-intro">We warmly invite you to join us in celebrating this blessed beginning and to keep us in your heartfelt duas.</p>
+            </div>
+
+            <article class="primary-event" aria-labelledby="nikah-title">
+              <div class="primary-date" aria-label="10 October"><span>Oct</span><strong>10</strong><small>Saturday</small></div>
+              <div class="primary-event-copy">
+                <h2 id="nikah-title">Nikah after Asr</h2>
+                <p class="event-detail">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                  After Asr · Around 04:00 PM
+                </p>
+                <p class="event-detail">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>
+                  Noorul Eman Juma Masjid<br />Parakkadavu
+                </p>
+                <a class="button button-gold" href="https://maps.app.goo.gl/k9ecC7Tz48YafNUf8?g_st=aw" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px;fill:currentColor;flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                  Nikah venue
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                </a>
+              </div>
+            </article>
+
+            <aside class="secondary-event reception-note" aria-labelledby="reception-title">
+              <div class="secondary-date"><strong>11</strong><span>Oct<br />Sun</span></div>
+              <div>
+                <h2 id="reception-title">Wedding Reception</h2>
+                <p>'Shibida' · Bride's Residence · Kalliasseri Central</p>
+                <a class="secondary-map-link" href="https://maps.app.goo.gl/VfZsYPa2f8NfcoJBA?g_st=aw" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex-shrink:0;stroke:none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                  Reception venue
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                </a>
+              </div>
+            </aside>
+
+            <div class="countdown-container" aria-label="Countdown to Nikah">
+              <p class="countdown-title">Counting Down</p>
+              <p class="countdown-date">Nikah · Saturday, 10 October 2026 at 04:00 PM</p>
+              <div class="countdown-capsule" role="timer" aria-live="polite">
+                <div class="countdown-block">
+                  <span class="countdown-num" id="countdown-days">000</span>
+                  <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-block">
+                  <span class="countdown-num" id="countdown-hours">00</span>
+                  <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-block">
+                  <span class="countdown-num" id="countdown-minutes">00</span>
+                  <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-block">
+                  <span class="countdown-num" id="countdown-seconds">00</span>
+                  <span class="countdown-label">Seconds</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="portrait-stage" aria-hidden="true">
+            <div class="portrait-arch"></div>
+            <div class="portrait-monogram">S<span>&amp;</span>A</div>
+            <img src="couples-image.png" alt="" width="1086" height="1448" loading="eager" decoding="async" />
+          </div>
+        </div>
+
+        <a class="scroll-cue" href="#main-content" aria-label="Scroll down to invitation details">
+          <span class="scroll-cue-arrows" aria-hidden="true">
+            <svg class="scroll-arrow scroll-arrow-1" viewBox="0 0 24 24">
+              <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg class="scroll-arrow scroll-arrow-2" viewBox="0 0 24 24">
+              <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="section section-family" aria-labelledby="family-title">
+        <!-- Ambient light orbs for glassmorphic depth -->
+        <div class="glass-orb glass-orb-family-1" aria-hidden="true"></div>
+        <div class="glass-orb glass-orb-family-2" aria-hidden="true"></div>
+
+        <div class="section-shell family-layout">
+
+          <div class="family-cards">
+            <!-- Bride Sleek Glass Card -->
+            <article class="glass-contemporary-card bride-glass-card reveal">
+              <div class="glass-top-glow" aria-hidden="true"></div>
+              <span class="glass-role-tag">The Bride</span>
+              <h3 class="glass-person-name">Shida</h3>
+              <div class="glass-relation-line">
+                <span>Daughter of</span>
+              </div>
+              <p class="glass-parents-text">Basheer M.T. &amp; Yumna Basheer</p>
+            </article>
+
+            <!-- Groom Sleek Glass Card -->
+            <article class="glass-contemporary-card groom-glass-card reveal">
+              <div class="glass-top-glow" aria-hidden="true"></div>
+              <span class="glass-role-tag">The Groom</span>
+              <h3 class="glass-person-name"><span class="cap-a">A</span>nsab</h3>
+              <div class="glass-relation-line">
+                <span>Son of</span>
+              </div>
+              <p class="glass-parents-text">Ameer P.P. &amp; Shameema Ameer</p>
+            </article>
+          </div>
+
+          <div class="family-dua-badge reveal">
+            <p class="arabic-dua-text" lang="ar" dir="rtl">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+            <p class="family-dua-note">Your presence and duas are all we seek.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-rsvp" aria-label="Queries and Assistance">
+        <div class="section-shell quiet-rsvp-shell reveal">
+          <div class="quiet-contact-links">
+            <a class="quiet-contact-link" href="tel:+917560863951" aria-label="Call +91 75608 63951">
+              <span class="contact-icon-bubble" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-4-1-2 2c-4-1.7-7.3-5-9-9l2-2-1-4Z" fill="currentColor"/></svg>
+              </span>
+              <span class="contact-number">+91 75608 63951</span>
+            </a>
+            <a class="quiet-contact-link" href="tel:+919207227685" aria-label="Call +91 92072 27685">
+              <span class="contact-icon-bubble" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-4-1-2 2c-4-1.7-7.3-5-9-9l2-2-1-4Z" fill="currentColor"/></svg>
+              </span>
+              <span class="contact-number">+91 92072 27685</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <img class="footer-crest-logo" src="logo.png" alt="Shida &amp; Ansab Monogram" width="300" height="300" loading="lazy" decoding="async" />
+      <p class="footer-dua">With hearts full of joy, we request the honor of your presence as we begin our journey together. Your blessings and company would mean the world to us on this blessed day.</p>
+      
+      <p class="footer-jazakallah" lang="ar" dir="rtl">جَزَاكُمُ اللَّهُ خَيْرًا</p>
+      <p class="footer-compliments">With best compliments from near and dear</p>
+    </footer>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
