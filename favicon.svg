@@ -2,5 +2,5 @@
   <circle cx="64" cy="64" r="64" fill="#9c5f6e"/>
   <circle cx="64" cy="64" r="61" fill="none" stroke="#faf5eb" stroke-width="2" opacity="0.6"/>
   <path d="M28 82 C28 46 42 22 64 16 C86 22 100 46 100 82 Z" fill="none" stroke="#faf5eb" stroke-width="3.5" opacity="0.85"/>
-  <text x="64" y="85" text-anchor="middle" font-family="'Georgia', 'Times New Roman', serif" font-size="34" font-weight="700" fill="#fffdfa" letter-spacing="1">N&amp;S</text>
+  <text x="64" y="85" text-anchor="middle" font-family="'Georgia', 'Times New Roman', serif" font-size="34" font-weight="700" fill="#fffdfa" letter-spacing="1">S&amp;A</text>
 </svg>
