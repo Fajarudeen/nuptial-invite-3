@@ -5,186 +5,126 @@
 
   const gate = document.getElementById("invitation-gate");
   const openButton = document.getElementById("open-invitation");
-  const gateCard = gate?.querySelector(".gate-card");
   const invitation = document.getElementById("invitation");
   const invitationTitle = document.getElementById("invitation-title");
-  const audio = document.getElementById("wedding-music");
+  const music = document.getElementById("wedding-music");
   const musicToggle = document.getElementById("music-toggle");
-  const skipLink = document.querySelector(".skip-link");
-  const mainContent = document.getElementById("main-content");
-  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const forceWelcome = new URLSearchParams(window.location.search).has("welcome");
+  let opened = false;
+  let resumeMusic = false;
 
-  let invitationOpened = false;
-
-  function updateMusicState() {
-    if (!musicToggle || !audio) return;
-    const isOff = audio.paused || audio.muted;
-    musicToggle.classList.toggle("is-muted", isOff);
-    musicToggle.setAttribute(
-      "aria-label",
-      isOff ? "Play background music" : "Mute background music"
-    );
+  function updateMusicButton() {
+    if (!music || !musicToggle) return;
+    const paused = music.paused;
+    musicToggle.classList.toggle("is-muted", paused);
+    musicToggle.setAttribute("aria-label", paused ? "Play background music" : "Pause background music");
+    const label = musicToggle.querySelector("span");
+    if (label) label.textContent = paused ? "Play song" : "Pause song";
   }
 
-  function startMusic() {
-    if (!audio) return;
-    audio.volume = 0.55;
-    audio.play().then(updateMusicState).catch(updateMusicState);
-  }
-
-  function revealInvitation({ focusHeading = true, playMusic = true, animate = true } = {}) {
-    if (invitationOpened || !invitation) return;
-    invitationOpened = true;
-
-    const useTransition = animate && !reduceMotion && gate && gateCard;
-
+  function showInvitation({ animate = true, focus = true } = {}) {
+    if (opened || !invitation) return;
+    opened = true;
     invitation.hidden = false;
     invitation.setAttribute("aria-hidden", "false");
+    document.body.classList.remove("is-locked");
 
-    if (musicToggle) musicToggle.hidden = false;
-
-    if (playMusic) startMusic();
-    else updateMusicState();
-
-    const finishReveal = () => {
+    const finish = () => {
       invitation.classList.add("is-revealed");
       if (gate) gate.hidden = true;
-      document.body.classList.remove("is-locked");
-      if (focusHeading && invitationTitle) invitationTitle.focus({ preventScroll: true });
+      if (focus) invitationTitle?.focus({ preventScroll: true });
     };
 
-    if (!useTransition) {
+    if (animate && !reduceMotion && gate) {
+      gate.setAttribute("aria-hidden", "true");
+      gate.classList.add("is-opening");
       invitation.classList.add("is-revealed");
-      finishReveal();
-      return;
+      window.setTimeout(finish, 1150);
+    } else {
+      finish();
     }
 
-    // Open doors and fade card simultaneously
-    gate.setAttribute("aria-hidden", "true");
-    gate.classList.add("is-door-opening");
-    invitation.classList.add("is-revealed");
-
-    window.setTimeout(finishReveal, 1950);
+    try { sessionStorage.setItem("shida-ansab-opened", "true"); } catch (_) {}
   }
 
-  openButton?.addEventListener("click", () => revealInvitation());
+  openButton?.addEventListener("click", () => showInvitation());
 
-  skipLink?.addEventListener("click", (event) => {
-    if (invitationOpened) return;
+  document.querySelector(".skip-link")?.addEventListener("click", (event) => {
+    if (opened) return;
     event.preventDefault();
-    revealInvitation({ focusHeading: false, playMusic: false, animate: false });
-    window.setTimeout(() => {
-      mainContent?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
-      mainContent?.focus({ preventScroll: true });
-    }, 0);
+    showInvitation({ animate: false, focus: false });
+    document.getElementById("events")?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
   });
-
-  let wasPlayingBeforeHidden = false;
 
   musicToggle?.addEventListener("click", () => {
-    if (!audio) return;
-    if (audio.paused || audio.muted) {
-      audio.muted = false;
-      wasPlayingBeforeHidden = false;
-      audio.play().then(updateMusicState).catch(updateMusicState);
+    if (!music) return;
+    if (music.paused) {
+      music.volume = 0.48;
+      music.play().then(updateMusicButton).catch(updateMusicButton);
     } else {
-      audio.pause();
-      wasPlayingBeforeHidden = false;
-      updateMusicState();
+      music.pause();
     }
+    updateMusicButton();
   });
+
+  music?.addEventListener("play", updateMusicButton);
+  music?.addEventListener("pause", updateMusicButton);
 
   document.addEventListener("visibilitychange", () => {
-    if (!audio || !invitationOpened) return;
+    if (!music) return;
     if (document.hidden) {
-      if (!audio.paused && !audio.muted) {
-        wasPlayingBeforeHidden = true;
-        audio.pause();
-      }
-    } else {
-      if (wasPlayingBeforeHidden) {
-        wasPlayingBeforeHidden = false;
-        audio.play().then(updateMusicState).catch(updateMusicState);
-      }
+      resumeMusic = !music.paused;
+      if (resumeMusic) music.pause();
+    } else if (resumeMusic) {
+      resumeMusic = false;
+      music.play().then(updateMusicButton).catch(updateMusicButton);
     }
   });
-
-  audio?.addEventListener("play", updateMusicState);
-  audio?.addEventListener("pause", updateMusicState);
 
   const revealItems = document.querySelectorAll(".reveal");
   if (reduceMotion || !("IntersectionObserver" in window)) {
     revealItems.forEach((item) => item.classList.add("is-visible"));
   } else {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-    );
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8%" });
     revealItems.forEach((item) => observer.observe(item));
   }
 
-  const scrollCue = document.querySelector(".scroll-cue");
-  if (scrollCue) {
-    const handleScroll = () => {
-      if (window.scrollY > 40) {
-        scrollCue.classList.add("is-scrolled");
-      } else {
-        scrollCue.classList.remove("is-scrolled");
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-  }
-
-  // Live Countdown Timer to Nikah (10 October 2026, 04:00 PM IST)
-  const daysEl = document.getElementById("countdown-days");
-  const hoursEl = document.getElementById("countdown-hours");
-  const minutesEl = document.getElementById("countdown-minutes");
-  const secondsEl = document.getElementById("countdown-seconds");
-
-  if (daysEl && hoursEl && minutesEl && secondsEl) {
-    const targetDate = new Date("2026-10-10T16:00:00+05:30").getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const difference = targetDate - now;
-
-      if (difference <= 0) {
-        daysEl.textContent = "0";
-        hoursEl.textContent = "0";
-        minutesEl.textContent = "0";
-        secondsEl.textContent = "0";
-        return;
-      }
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      daysEl.textContent = days;
-      hoursEl.textContent = hours < 10 ? `0${hours}` : hours;
-      minutesEl.textContent = minutes < 10 ? `0${minutes}` : minutes;
-      secondsEl.textContent = seconds < 10 ? `0${seconds}` : seconds;
+  const days = document.getElementById("countdown-days");
+  const countdownLabel = document.getElementById("countdown-label");
+  if (days && countdownLabel) {
+    const target = new Date("2026-10-10T16:00:00+05:30").getTime();
+    const distance = target - Date.now();
+    if (distance > 0) {
+      const count = Math.ceil(distance / 86400000);
+      days.textContent = String(count);
+      countdownLabel.textContent = count === 1 ? "day to go" : "days to go";
+    } else {
+      days.textContent = "∞";
+      countdownLabel.textContent = "memories begin";
     }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
   }
 
-  if (window.location.hash && window.location.hash !== "#top") {
-    revealInvitation({ focusHeading: false, playMusic: false, animate: false });
-    window.requestAnimationFrame(() => {
-      document.querySelector(window.location.hash)?.scrollIntoView({
-        behavior: reduceMotion ? "auto" : "smooth",
-        block: "start"
-      });
-    });
+  const mobileNav = document.querySelector(".mobile-nav");
+  if (mobileNav) {
+    const updateMobileNav = () => mobileNav.classList.toggle("is-visible", window.scrollY > 360);
+    window.addEventListener("scroll", updateMobileNav, { passive: true });
+    updateMobileNav();
+  }
+
+  let visited = false;
+  try { visited = sessionStorage.getItem("shida-ansab-opened") === "true"; } catch (_) {}
+  const hasDeepLink = window.location.hash && window.location.hash !== "#top";
+  if ((visited && !forceWelcome) || hasDeepLink) {
+    showInvitation({ animate: false, focus: false });
+    if (hasDeepLink) {
+      window.requestAnimationFrame(() => document.querySelector(window.location.hash)?.scrollIntoView());
+    }
   }
 })();
