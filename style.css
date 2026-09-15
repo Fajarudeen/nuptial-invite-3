@@ -1182,6 +1182,25 @@ button {
   margin-top: 3px;
 }
 
+.secondary-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--sage-rich) !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  margin: 3px 0 2px !important;
+}
+
+.secondary-time svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
 .nikah-map-link,
 .secondary-map-link {
   display: inline-flex;
